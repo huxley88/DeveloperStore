@@ -2,9 +2,11 @@
 
 A sales application where users can select customers and products. Discounts are applied based on product quantity. The system includes:
 
-- Product management (create, update, delete)
-- Customer management (create, update, delete)
-- User management page (Admin-only)
+- Auth User
+- Sales management (create, get, cancel, cancelItem)
+- Product management (create, get, update, delete)
+- Customer management (create, get, update, delete)
+- User management page (get) (Admin-only)
 
 ---
 
@@ -30,8 +32,8 @@ A sales application where users can select customers and products. Discounts are
 - **Domain Layer:** `Ambev.DeveloperEvaluation.Domain`
 
 ### Crosscutting
-- `Ambev.DeveloperEvaluation.Common`
-- `Ambev.DeveloperEvaluation.IoC`
+- **Application Shared** `Ambev.DeveloperEvaluation.Common`
+- **Inversion of Control** `Ambev.DeveloperEvaluation.IoC`
 
 ### Tests
 - **Functional:** `Ambev.DeveloperEvaluation.Functional`
@@ -56,7 +58,7 @@ From the frontend folder (`DeveloperStore/frontend`):
 npm install
 npm start
 ```
-###User and password default 
+### User and password default 
 ```bash
 User - admin@gmail.com
 password - @dmin123
