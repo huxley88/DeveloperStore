@@ -1,0 +1,104 @@
+<div class="card shadow-sm">
+  <div class="card-body">
+    <h5 class="card-title mb-3">New Sale</h5>
+
+    <div class="mb-3">
+      <label class="form-label">Main Branch</label>
+      <select class="form-select" [(ngModel)]="selectedBranchId" name="branchSelect">
+        <option [ngValue]="null">-- Select a branch --</option>
+        <option *ngFor="let b of mainBranches" [value]="b.id">{{ b.name }}</option>
+      </select>
+    </div>
+
+    <div class="mb-3 position-relative">
+      <label class="form-label">Customer</label>
+      <input class="form-control" [(ngModel)]="customerQuery" name="customerQuery" (input)="searchCustomers()"
+        placeholder="Search customer by name..." autocomplete="off" />
+      <div class="list-group position-absolute w-100 z-3" *ngIf="customerResults.length">
+        <button type="button" class="list-group-item list-group-item-action" *ngFor="let c of customerResults"
+          (click)="chooseCustomer(c)">
+          {{ c.name }}
+        </button>
+      </div>
+      <div class="form-text" *ngIf="selectedCustomer">Selected: {{ selectedCustomer?.name }}</div>
+    </div>
+
+    <div class="mb-3 position-relative">
+      <label class="form-label">Add products</label>
+      <input class="form-control" [(ngModel)]="productQuery" name="productQuery" (input)="searchProducts()"
+        placeholder="Search product by name..." autocomplete="off" />
+      <div class="list-group position-absolute w-100 z-3" *ngIf="productResults.length">
+        <button type="button" class="list-group-item list-group-item-action" *ngFor="let p of productResults"
+          (click)="addProduct(p)">
+          {{ p.name }} — {{ (p.unitPrice || p.price) | currency }}
+        </button>
+      </div>
+    </div>
+
+    <div class="table-responsive mb-3" *ngIf="items.length">
+      <table class="table align-middle">
+        <thead>
+          <tr>
+            <th>Product</th>
+            <th class="text-end">Unit</th>
+            <th class="text-center">Qty</th>
+            <th class="text-end">Total</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let it of items">
+            <td>{{ it.name }}</td>
+            <td class="text-end">{{ it.unitPrice | currency }}</td>
+            <td class="text-center">
+              <div class="btn-group btn-group-sm" role="group">
+                <button class="btn btn-outline-secondary" (click)="dec(it)">-</button>
+                <button class="btn btn-light" disabled>{{ it.quantity }}</button>
+                <button class="btn btn-outline-secondary" (click)="inc(it)">+</button>
+              </div>
+            </td>
+            <td class="text-end">{{ (it.unitPrice * it.quantity) | currency }}</td>
+            <td class="text-end">
+              <button class="btn btn-sm btn-link text-danger" (click)="remove(it)">Remove</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="row g-2">
+      <div class="d-flex justify-content-between">
+        <span>Discount
+          <small *ngIf="discountPercent === 10">(4+ items)</small>
+          <small *ngIf="discountPercent === 20">(10-20 items)</small>
+        </span>
+      </div>
+      <div class="col-12 col-md-6">
+        <div class="card bg-light">
+          <div class="card-body">
+            <div class="d-flex justify-content-between">
+              <span>Subtotal</span>
+              <strong>{{ subtotal | currency }}</strong>
+            </div>
+            <div class="d-flex justify-content-between">
+              <span>Discount</span>
+              <strong>- {{ (subtotal * (discountPercent || 0) / 100) | currency }}</strong>
+            </div>
+            <hr class="my-2" />
+            <div class="d-flex justify-content-between fs-5">
+              <span>Total</span>
+              <strong>{{ total | currency }}</strong>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="d-flex justify-content-end mt-3">
+      <button class="btn btn-success" [disabled]="!selectedCustomer || !items.length || !selectedBranchId"
+        (click)="saveSale()">
+        Save Sale
+      </button>
+    </div>
+  </div>
+</div>

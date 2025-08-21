@@ -1,0 +1,43 @@
+<app-navbar></app-navbar>
+<div class="container my-3" *ngIf="isAdminUser()">
+  <div class="card shadow-sm">
+    <div class="card-body">
+      <h5 class="card-title">Users</h5>
+
+      <div *ngIf="loading">Loading...</div>
+      <div class="text-danger" *ngIf="error">{{ error }}</div>
+      <div *ngIf="!loading && !error && !users.length" class="text-muted">No users found.</div>
+
+      <div *ngIf="users.length" class="table-responsive">
+        <table class="table align-middle">
+          <thead>
+            <tr>
+              <th>Id</th>
+              <th>Email</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let u of users">
+              <td>{{ u.id }}</td>
+              <td>{{ u.email }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <nav class="mt-3" *ngIf="total > pageSize">
+        <ul class="pagination">
+          <li class="page-item" [class.disabled]="page === 1">
+            <a class="page-link" (click)="page > 1 && load(page - 1)">Previous</a>
+          </li>
+          <li class="page-item" *ngFor="let p of pages()" [class.active]="p === page">
+            <a class="page-link" (click)="load(p)">{{ p }}</a>
+          </li>
+          <li class="page-item" [class.disabled]="page >= pages().length">
+            <a class="page-link" (click)="page < pages().length && load(page + 1)">Next</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</div>

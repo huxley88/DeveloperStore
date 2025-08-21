@@ -1,0 +1,26 @@
+### List sales
+GET https://localhost:5001/api/Sales?page=1&pageSize=20
+Accept: application/json
+
+### Create sale
+POST http://localhost:5000/api/sales
+Content-Type: application/json
+
+{
+  "saleNumber": "S-1001",
+  "customerId": "CUST-002",
+  "customerName": "Maria Souza",
+  "branchId": "BR-001",
+  "branchName": "Filial Centro",
+  "items": [
+    {
+      "productId": "PRD-001",
+      "productName": "Cerveja Pilsen",
+      "quantity": 6,
+      "unitPrice": 5.50
+    }
+  ]
+}
+
+### Cancel sale
+DELETE http://localhost:5000/api/sales/S-1001

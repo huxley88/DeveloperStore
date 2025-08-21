@@ -1,0 +1,65 @@
+# .NET / C#
+bin/
+obj/
+*.exe
+*.dll
+*.pdb
+*.cache
+*.log
+*.user
+*.suo
+*.vs/
+.vscode/
+*.dbmdl
+*.bak
+*.mdf
+*.ldf
+*.ndf
+
+# Visual Studio
+*.vscode/
+*.userprefs
+*.csproj.user
+*.db
+*.opendb
+*.ide
+
+# ASP.NET specific
+App_Data/
+App_Start/
+*.Publish.xml
+*.PublishSettings
+
+# Angular / Node
+node_modules/
+dist/
+tmp/
+temp/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+package-lock.json
+.env
+.angular/
+.angular-cache/
+
+# Docker
+*.pid
+*.seed
+*.tar
+*.bak
+*.swp
+.dockerignore
+
+# System files
+Thumbs.db
+.DS_Store
+*.swp
+*.swo
+
+# Test / Coverage
+coverage/
+*.lcov
+
+# Ignore text files
+*.txt

@@ -1,0 +1,15 @@
+<div class="container mt-5" style="max-width: 420px;">
+  <h3 class="mb-3">Login</h3>
+  <div class="mb-3">
+    <label class="form-label">Email</label>
+    <input class="form-control" [(ngModel)]="email" type="email" placeholder="email@exemplo.com" />
+  </div>
+  <div class="mb-3">
+    <label class="form-label">Password</label>
+    <input class="form-control" [(ngModel)]="password" type="password" placeholder="••••••••" />
+  </div>
+  <div class="text-danger mb-2" *ngIf="error">{{ error }}</div>
+  <button class="btn btn-primary w-100" (click)="submit()" [disabled]="loading">
+    {{ loading ? 'loading...' : 'login' }}
+  </button>
+</div>
