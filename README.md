@@ -48,6 +48,7 @@ A sales application where users can select customers and products. Discounts are
 - Install **Node.js** and **npm**
 - Verify installation and version:
 ```bash
+cd DeveloperStore/frontend
 node -v
 npm -v
 ```
@@ -55,6 +56,7 @@ npm -v
 ### Running Frontend
 From the frontend folder (`DeveloperStore/frontend`):
 ```bash
+cd DeveloperStore/frontend
 npm install
 npm start
 ```
@@ -72,8 +74,9 @@ password - @dmin123
 - Port **5001** (HTTPS) free
 - `aspnetapp.pfx` certificate available in the project root (used for HTTPS)
 
-### Step 1: Build and Start Containers
+### Step 1: Build and Start Containers (`DeveloperStore/backend`):
 ```bash
+cd DeveloperStore/backend
 docker-compose up -d --build
 ```
 This will start:
@@ -87,7 +90,15 @@ API available at:
 - Swagger: [https://localhost:5001/swagger/index.html](https://localhost:5001/swagger/index.html)  
 - API base: `https://localhost:5001/api/`  
 
-### Step 3: Database Seeding
+### Step 3: Database Migrations
+**Important:** To apply migrations, you must run the following command **inside the WebApi project** following the current structure:
+
+```bash
+cd DeveloperStore/backend/src/Ambev.DeveloperEvaluation.WebApi
+dotnet ef database update 
+```
+
+### Step 4: Database Seeding
 ```csharp
 using (var scope = app.Services.CreateScope())
 {
@@ -98,7 +109,7 @@ using (var scope = app.Services.CreateScope())
 }
 ```
 
-### Step 4: Troubleshooting
+### Step 5: Troubleshooting
 - Ensure container exposes **5001**
 - Validate certificate path
 - Run:
@@ -106,8 +117,9 @@ using (var scope = app.Services.CreateScope())
 docker ps
 docker logs salesapi
 ```
-If certificate issues occur, disable SSL verification temporarily (not recommended for production):
+If certificate issues occur, disable SSL verification temporarily:
 ```bash
+cd DeveloperStore/backend
 dotnet dev-certs https --clean
 dotnet dev-certs https --trust
 ```
@@ -117,6 +129,13 @@ dotnet dev-certs https --trust
 ## Tests
 Run automated tests with (`DeveloperStore/backend/tests`):
 ```bash
+DeveloperStore/backend/tests/Ambev.DeveloperEvaluation.Functional
+dotnet test
+
+DeveloperStore/backend/tests/Ambev.DeveloperEvaluation.Integration
+dotnet test
+
+DeveloperStore/backend/tests/Ambev.DeveloperEvaluation.Unit
 dotnet test
 ```
 This runs unit, integration and functional tests.
